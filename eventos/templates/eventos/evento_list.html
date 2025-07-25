@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Eventos{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Eventos</h1>
+
+{% if user.is_authenticated %}
+  <p class="mb-3">Olá, {{ user.username }} | <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Sair</a></p>
+  <a href="{% url 'evento-create' %}" class="btn btn-primary mb-3">+ Criar Novo Evento</a>
+{% else %}
+  <a href="{% url 'login' %}" class="btn btn-success mb-3">Login de Organizador</a>
+{% endif %}
+
+<div class="row">
+  {% for evento in eventos %}
+    <div class="col-md-4">
+      <div class="card mb-3 shadow-sm">
+        {% if evento.banner %}
+          <img src="{{ evento.banner.url }}" class="card-img-top" alt="Banner do evento">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ evento.titulo }}</h5>
+          <p class="card-text">{{ evento.descricao|truncatewords:20 }}</p>
+          <p><strong>Data:</strong> {{ evento.data }}<br>
+             <strong>Local:</strong> {{ evento.local }}</p>
+          <p>Capacidade: {{ evento.capacidade_maxima }} | Inscritos: {{ evento.inscricoes.count }}</p>
+          <a href="{% url 'evento-inscricao' evento.id %}" class="btn btn-outline-primary btn-sm">Inscrever-se</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'evento-update' evento.id %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'evento-delete' evento.id %}" class="btn btn-danger btn-sm">Deletar</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>Nenhum evento cadastrado.</p>
+  {% endfor %}
+</div>
+{% endblock %}

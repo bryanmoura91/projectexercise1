@@ -1,0 +1,19 @@
+# Ambiente virtual
+venv/
+.venv/
+
+# IDE
+.idea/
+
+# Arquivos do Django
+__pycache__/
+db.sqlite3
+
+# Arquivos de mídia locais
+media/
+
+# Variáveis de ambiente
+.env
+
+# Arquivos estáticos coletados
+staticfiles/
