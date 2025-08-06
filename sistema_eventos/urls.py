@@ -10,6 +10,7 @@ from eventos.views import (
     EventoUpdateView,
     EventoDeleteView,
     InscricaoCreateView,
+    RegisterView,
 )
 
 urlpatterns = [
@@ -18,6 +19,7 @@ urlpatterns = [
     # Autenticação
     path('login/', LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('register/', RegisterView.as_view(), name='register'),
 
     # Eventos
     path('', EventoListView.as_view(), name='evento-list'),

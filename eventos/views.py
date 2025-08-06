@@ -1,3 +1,4 @@
+from .forms import RegistrationForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -51,7 +52,6 @@ class InscricaoCreateView(View):
         evento = get_object_or_404(Evento, id=evento_id)
         form = ParticipanteForm(request.POST)
         if form.is_valid():
-            # Verifica capacidade
             if evento.inscricoes.count() >= evento.capacidade_maxima:
                 return render(request, 'eventos/inscricao_form.html', {
                     'form': form,
@@ -62,3 +62,17 @@ class InscricaoCreateView(View):
             Inscricao.objects.create(evento=evento, participante=participante)
             return redirect('evento-list')
         return render(request, 'eventos/inscricao_form.html', {'form': form, 'evento': evento})
+
+
+# 📌 Cadastro de usuário (deve estar fora das outras views!)
+class RegisterView(View):
+    def get(self, request):
+        form = RegistrationForm()
+        return render(request, 'registration/register.html', {'form': form})
+
+    def post(self, request):
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        return render(request, 'registration/register.html', {'form': form})

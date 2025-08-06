@@ -6,11 +6,15 @@
 <h1 class="mb-4">Eventos</h1>
 
 {% if user.is_authenticated %}
-  <p class="mb-3">Olá, {{ user.username }} | <a href="{% url 'logout' %}" class="btn btn-outline-danger btn-sm">Sair</a></p>
-  <a href="{% url 'evento-create' %}" class="btn btn-primary mb-3">+ Criar Novo Evento</a>
+    <p>Olá, {{ user.username }} | <a href="{% url 'logout' %}">Sair</a></p>
+    <a href="{% url 'evento-create' %}" class="btn btn-primary mb-3">+ Criar Novo Evento</a>
 {% else %}
-  <a href="{% url 'login' %}" class="btn btn-success mb-3">Login de Organizador</a>
+    <div class="d-flex gap-2 mb-3">
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+        <a href="{% url 'register' %}" class="btn btn-success">Registrar-se</a>
+    </div>
 {% endif %}
+
 
 <div class="row">
   {% for evento in eventos %}
