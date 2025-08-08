@@ -6,7 +6,12 @@
 <h1 class="mb-4">Eventos</h1>
 
 {% if user.is_authenticated %}
-    <p>Olá, {{ user.username }} | <a href="{% url 'logout' %}">Sair</a></p>
+    <p>Olá, seja bem vindo ao site de eventos {{ user.username }}. deseja criar algum evento? Ou deseja se inscrever em algum evento? <form method="post" action="{% url 'logout' %}" style="display:inline;">
+<!--  {% csrf_token %}-->
+<!--  <button type="submit" class="btn btn-link p-0" style="border:none; background:none; padding:0; cursor:pointer;">-->
+<!--    Sair-->
+<!--  </button>-->
+<!--</form></p>-->
     <a href="{% url 'evento-create' %}" class="btn btn-primary mb-3">+ Criar Novo Evento</a>
 {% else %}
     <div class="d-flex gap-2 mb-3">
