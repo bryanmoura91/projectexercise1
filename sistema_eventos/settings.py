@@ -1,7 +1,7 @@
 import os
-from pathlib import Path
+import cloudinary
 
-from django.urls import reverse_lazy
+from pathlib import Path
 from dotenv import load_dotenv
 
 # Carregar variáveis do .env
@@ -13,6 +13,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Segurança
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# ALLOWED_HOSTS a partir do .env, separando por vírgula
 ALLOWED_HOSTS = ['eventos-c3ri.onrender.com', 'localhost', '127.0.0.1']
 
 # Aplicativos instalados
@@ -45,7 +47,7 @@ ROOT_URLCONF = 'sistema_eventos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,13 +92,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Configuração do Cloudinary
-DEFAULT_FILE_STORAGE = os.getenv(
-    'DEFAULT_FILE_STORAGE',
-    'django.core.files.storage.FileSystemStorage'
-)
-CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
+cloudinary_url = os.getenv('CLOUDINARY_URL')
+if cloudinary_url:
+    cloudinary.config(cloudinary_url)
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
-# Arquivos de mídia (opcional, mas recomendado)
+# Arquivos de mídia
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
