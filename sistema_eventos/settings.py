@@ -96,8 +96,6 @@ DEFAULT_FILE_STORAGE = os.getenv(
     'django.core.files.storage.FileSystemStorage'
 )
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
-if cloudinary_url:
-    cloudinary.config(cloudinary_url)
 
 # Arquivos de mídia (opcional, mas recomendado)
 MEDIA_URL = '/media/'
