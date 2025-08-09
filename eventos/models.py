@@ -59,10 +59,17 @@ class Participante(models.Model):
         max_length=20,
         verbose_name="Telefone"
     )
-    dados_adicionais = models.TextField(
+    GENERO_CHOICES = [
+        ('M', 'Masculino'),
+        ('F', 'Feminino'),
+        ('O', 'Outro'),
+    ]
+    genero = models.CharField(
+        max_length=1,
+        choices=GENERO_CHOICES,
+        verbose_name="Gênero",
         blank=True,
-        null=True,
-        verbose_name="Dados adicionais"
+        null=True
     )
 
     class Meta:
@@ -90,6 +97,12 @@ class Inscricao(models.Model):
     data_inscricao = models.DateTimeField(
         auto_now_add=True,
         verbose_name="Data da inscrição"
+    )
+    feedback = models.TextField(
+        verbose_name="Feedback",
+        blank=True,
+        null=True,
+        help_text="Mensagem de feedback do participante."
     )
 
     class Meta:

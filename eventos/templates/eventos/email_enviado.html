@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Email Enviado{% endblock %}
+{% block content %}
+<div class="alert alert-success">
+  <h4>Email enviado com sucesso!</h4>
+  <p>Esta é uma mensagem fictícia para simular o envio de email.</p>
+</div>
+<a href="{% url 'evento-list' %}" class="btn btn-primary">Voltar para eventos</a>
+{% endblock %}

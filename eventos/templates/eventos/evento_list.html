@@ -6,12 +6,7 @@
 <h1 class="mb-4">Eventos</h1>
 
 {% if user.is_authenticated %}
-    <p>Olá, seja bem vindo ao site de eventos {{ user.username }}. deseja criar algum evento? Ou deseja se inscrever em algum evento? <form method="post" action="{% url 'logout' %}" style="display:inline;">
-<!--  {% csrf_token %}-->
-<!--  <button type="submit" class="btn btn-link p-0" style="border:none; background:none; padding:0; cursor:pointer;">-->
-<!--    Sair-->
-<!--  </button>-->
-<!--</form></p>-->
+    <p>Olá, seja bem vindo ao site de eventos {{ user.username }}. Deseja criar algum evento? Ou deseja se inscrever em algum evento?</p>
     <a href="{% url 'evento-create' %}" class="btn btn-primary mb-3">+ Criar Novo Evento</a>
 {% else %}
     <div class="d-flex gap-2 mb-3">
@@ -19,7 +14,6 @@
         <a href="{% url 'register' %}" class="btn btn-success">Registrar-se</a>
     </div>
 {% endif %}
-
 
 <div class="row">
   {% for evento in eventos %}
@@ -34,10 +28,23 @@
           <p><strong>Data:</strong> {{ evento.data }}<br>
              <strong>Local:</strong> {{ evento.local }}</p>
           <p>Capacidade: {{ evento.capacidade_maxima }} | Inscritos: {{ evento.inscricoes.count }}</p>
-          <a href="{% url 'evento-inscricao' evento.id %}" class="btn btn-outline-primary btn-sm">Inscrever-se</a>
+
           {% if user.is_authenticated %}
-            <a href="{% url 'evento-update' evento.id %}" class="btn btn-warning btn-sm">Editar</a>
-            <a href="{% url 'evento-delete' evento.id %}" class="btn btn-danger btn-sm">Deletar</a>
+            {% if evento.criado_por == user %}
+              <span class="badge bg-secondary">Você é o promotor</span>
+              <a href="{% url 'evento-update' evento.id %}" class="btn btn-warning btn-sm">Editar</a>
+              <a href="{% url 'evento-delete' evento.id %}" class="btn btn-danger btn-sm">Deletar</a>
+            {% elif evento.inscricoes.count < evento.capacidade_maxima %}
+              <a href="{% url 'evento-inscricao' evento.id %}" class="btn btn-outline-primary btn-sm">Inscrever-se</a>
+            {% else %}
+              <span class="badge bg-danger">Vagas esgotadas</span>
+            {% endif %}
+          {% else %}
+            {% if evento.inscricoes.count < evento.capacidade_maxima %}
+              <a href="{% url 'evento-inscricao' evento.id %}" class="btn btn-outline-primary btn-sm">Inscrever-se</a>
+            {% else %}
+              <span class="badge bg-danger">Vagas esgotadas</span>
+            {% endif %}
           {% endif %}
         </div>
       </div>

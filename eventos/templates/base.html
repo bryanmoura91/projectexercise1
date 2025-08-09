@@ -16,12 +16,18 @@
     <div>
       {% if user.is_authenticated %}
         <span class="navbar-text me-3">Olá, seja bem vindo {{ user.username }}</span>
-       <form method="post" action="{% url 'logout' %}" style="display:inline;">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-outline-light btn-sm">
-    Sair
-  </button>
-</form>
+
+        <!-- Links adicionais para usuário autenticado -->
+        <a href="{% url 'participantes-list' %}" class="btn btn-outline-light btn-sm me-2">Participantes</a>
+<!--        <a href="{% url 'password_change' %}" class="btn btn-outline-light btn-sm me-2">Alterar Senhaa</a>-->
+        <a href="{% url 'user-edit' %}" class="btn btn-outline-light btn-sm me-2">Editar Perfil</a>
+
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light btn-sm">
+            Sair
+          </button>
+        </form>
 
       {% else %}
         <a href="{% url 'login' %}" class="btn btn-light btn-sm">Login</a>

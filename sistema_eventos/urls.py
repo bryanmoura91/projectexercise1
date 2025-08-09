@@ -1,4 +1,4 @@
-
+from django.urls import path, include
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
@@ -12,6 +12,9 @@ from eventos.views import (
     EventoDeleteView,
     InscricaoCreateView,
     RegisterView,
+    ParticipantesListView,
+    UserEditView,
+    FeedbackCreateView,
 )
 
 urlpatterns = [
@@ -30,8 +33,19 @@ urlpatterns = [
 
     # Inscrição
     path('evento/<int:evento_id>/inscricao/', InscricaoCreateView.as_view(), name='evento-inscricao'),
+
+    # Participantes
+    path('participantes/', ParticipantesListView.as_view(), name='participantes-list'),
+
+    # Edição usuário (email e senha juntos)
+    path('usuario/editar/', UserEditView.as_view(), name='user-edit'),
+
+    # Feedback da inscrição
+    path('inscricao/<int:inscricao_id>/feedback/', FeedbackCreateView.as_view(), name='inscricao-feedback'),
+
+    # URLs padrão do auth (inclui password_change, password_reset, etc)
+    path('accounts/' , include('django.contrib.auth.urls')) ,
 ]
 
-# Arquivos de mídia em modo de desenvolvimento
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
