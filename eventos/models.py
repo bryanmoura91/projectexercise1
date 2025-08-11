@@ -22,9 +22,9 @@ class Evento(models.Model):
         verbose_name="Capacidade máxima de participantes"
     )
     banner = models.ImageField(
-        upload_to='banners/',
-        blank=True,
-        null=True,
+        upload_to='banners/' ,
+        blank=True ,
+        null=True ,
         verbose_name="Banner do evento"
     )
     criado_por = models.ForeignKey(
