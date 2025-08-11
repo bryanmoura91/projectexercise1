@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     # Apps de terceiros
     'cloudinary',
     'cloudinary_storage',
-    # Seu app principal (adicione quando criar, ex.: 'eventos', 'vagas', etc.)
+    
 ]
 
 MIDDLEWARE = [
@@ -97,7 +97,7 @@ DEFAULT_FILE_STORAGE = os.getenv(
 )
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
-# Arquivos de mídia (opcional, mas recomendado)
+# Arquivos de mídia 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
