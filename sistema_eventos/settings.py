@@ -1,5 +1,6 @@
 import os
 import cloudinary
+
 from pathlib import Path
 
 from django.urls import reverse_lazy
@@ -94,15 +95,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CLOUDINARY_URL = os.getenv('CLOUDINARY_URL')
 
-<<<<<<< HEAD
+
 # Arquivos de mídia (opcional, mas recomendado)
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media'
-=======
+
 # Arquivos de mídia 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
->>>>>>> b65601d38e1c5ffea046717b8b5d379a79e26bad
+
 
 # Email (usa variáveis do .env)
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
